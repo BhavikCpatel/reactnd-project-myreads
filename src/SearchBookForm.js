@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+
 /**
  *
  * @description Component for search book form
@@ -9,6 +11,10 @@ import { Link } from 'react-router-dom';
  * @author Bhavik Patel
  */
 export default class SearchBookForm extends Component {
+  //define proptypes for type checking
+  static propTypes = {
+    onBookSearch: PropTypes.func.isRequired,
+  }
   render() {
     return (
       <div className="search-books-bar">
@@ -22,7 +28,11 @@ export default class SearchBookForm extends Component {
           However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
           you don't find a specific author or title. Every search is limited by search terms.
           */}
-          <input type="text" placeholder="Search by title or author"/>
+          <input
+            type="text"
+            placeholder="Search by title or author"
+            onChange={event => this.props.onBookSearch(event.target.value)}
+          />
         </div>
       </div>
     );
