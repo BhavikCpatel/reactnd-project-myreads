@@ -16,12 +16,13 @@ export default class Book extends Component {
   //define PropTypes for type checking
   static propTypes = {
     book: PropTypes.object.isRequired,
+    onBookShelfChange: PropTypes.func.isRequired,
   }
 
   //render a book
   render() {
     //Get Book from props
-    const { book } = this.props;
+    const { book, onBookShelfChange } = this.props;
     //set extract book properties and
     //set default values for missing attributes
     //especially for authors, shelf, thumbnail
@@ -45,12 +46,10 @@ export default class Book extends Component {
           </div>
           <div className="book-shelf-changer">
 
-            <select defaultValue={shelf}>
-              {
-                /*
-                // TODO: set default value and handle change event
-                */
-              }
+            <select
+              defaultValue={shelf}
+              onChange={(e) => {onBookShelfChange(book, e.target.value)}}
+            >
               <option value="none" disabled>Move to...</option>
               <option value="currentlyReading">Currently Reading</option>
               <option value="wantToRead">Want to Read</option>

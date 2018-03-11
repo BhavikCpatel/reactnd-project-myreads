@@ -17,6 +17,7 @@ const BookCollection  = props => (
             <Book
               key={book.id}
               book={book}
+              onBookShelfChange={props.onBookShelfChange}
             />
           </li>
         ))
@@ -27,6 +28,7 @@ const BookCollection  = props => (
 
 BookCollection.propTypes = {
   books: PropTypes.array.isRequired,
+  onBookShelfChange: PropTypes.func.isRequired,
 }
 
 export default BookCollection;

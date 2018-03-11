@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import BookShelf from './BookShelf';
 /**
  *
@@ -10,6 +11,12 @@ import BookShelf from './BookShelf';
  * @author Bhavik Patel
  */
 export default class BookShelves extends Component {
+  //define proptypes for static checking
+  static propTypes = {
+    books: PropTypes.array.isRequired,
+    onBookShelfChange: PropTypes.func.isRequired,
+  }
+
   shelves = {
     currentlyReading: "Currently Reading",
     wantToRead: "Want to Read",
@@ -36,7 +43,7 @@ export default class BookShelves extends Component {
    */
   render() {
     //get books array from props
-    const { books } = this.props;
+    const { books, onBookShelfChange } = this.props;
 
 
     return (
@@ -50,7 +57,8 @@ export default class BookShelves extends Component {
               <BookShelf
                 key={shelf}
                 title={this.shelves[shelf]}
-                books={this.getBooksByShelf(books, shelf)} />
+                books={this.getBooksByShelf(books, shelf)}
+                onBookShelfChange={onBookShelfChange} />
             ))
           }
 
