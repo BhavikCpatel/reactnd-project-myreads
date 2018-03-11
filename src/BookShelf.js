@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import BookCollection from './BookCollection';
 /**
  *
@@ -9,22 +10,23 @@ import BookCollection from './BookCollection';
  * @author Bhavik Patel
  */
 export default class BookShelf extends Component {
+  //define PropTypes for type checking
+  static propTypes = {
+    books: PropTypes.array.isRequired,
+    title: PropTypes.string.isRequired,
+  }
+
   render() {
+    //extracts books and title from props
+    const { books, title } = this.props;
+
     return (
       <div>
         <div className="bookshelf">
-          <h2 className="bookshelf-title">Currently Reading</h2>
-          <BookCollection shelf="currentlyReading" />
-        </div>
-        <div className="bookshelf">
-          <h2 className="bookshelf-title">Want to Read</h2>
-          <BookCollection shelf="wantToRead" />
-        </div>
-        <div className="bookshelf">
-          <h2 className="bookshelf-title">Read</h2>
-          <BookCollection shelf="read" />
+          <h2 className="bookshelf-title">{title}</h2>
+          <BookCollection books={books} />
         </div>
       </div>
-    )
+    );
   }
 }
