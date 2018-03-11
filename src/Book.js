@@ -45,7 +45,7 @@ export default class Book extends Component {
           </div>
           <div className="book-shelf-changer">
 
-            <select>
+            <select defaultValue={shelf}>
               {
                 /*
                 // TODO: set default value and handle change event
