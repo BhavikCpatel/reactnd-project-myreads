@@ -16,6 +16,7 @@ import * as BooksAPI from './BooksAPI';
 export default class SearchBooks extends Component {
   //define proptypes for type checking
   static propTypes = {
+    books: PropTypes.array.isRequired,
     onBookShelfChange: PropTypes.func.isRequired,
   }
   //search book component's local state
@@ -35,9 +36,33 @@ export default class SearchBooks extends Component {
    * @author Bhavik Patel
    */
   updateSearchState({searchQuery = '', books = [], error =''}) {
-    this.setState({ searchQuery, books, error });
+    const booksWithShelf = books.length ? this.updateBookShelf(books) : [];
+    this.setState({ searchQuery, books: booksWithShelf, error });
   }
 
+  /**
+   *
+   * @description update shelf for books that are in user's library
+   * @param {array} books collection of books returned from server
+   * @returns {array} returns books with correct shelf name
+   * @memberof SearchBooks
+   * @author Bhavik Patel
+   */
+  updateBookShelf(books){
+    const updatedBooks = [];
+    const bookCollectionByShelf = this.props.books
+      .reduce((books, book) => {books[book['id']] = book; return books;}, {});
+
+    books.forEach((book, index) => {
+      const shelf =
+        bookCollectionByShelf[book.id]
+        ? bookCollectionByShelf[book.id].shelf
+        : 'none';
+      updatedBooks.push(Object.assign(books[index], { shelf }));
+    });
+
+    return updatedBooks;
+  }
   /**
    *
    * @description search book using API
