@@ -1,6 +1,13 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-
+/**
+ *
+ * @description Component for search book form
+ * @export
+ * @class SearchBookForm
+ * @extends {Component}
+ * @author Bhavik Patel
+ */
 export default class SearchBookForm extends Component {
   render() {
     return (
