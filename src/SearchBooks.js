@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import SearchBookForm from './SearchBookForm';
 import SearchBookResults from './SearchBookResults';
 import ErrorMesssage from './ErrorMessage';
@@ -13,6 +14,10 @@ import * as BooksAPI from './BooksAPI';
  * @author Bhavik Patel
  */
 export default class SearchBooks extends Component {
+  //define proptypes for type checking
+  static propTypes = {
+    onBookShelfChange: PropTypes.func.isRequired,
+  }
   //search book component's local state
   state = {
     searchQuery: '',
@@ -81,6 +86,7 @@ export default class SearchBooks extends Component {
         <SearchBookResults
           searchQuery={this.state.searchQuery}
           books={this.state.books}
+          onBookShelfChange={this.props.onBookShelfChange}
         />
         { this.state.error &&
           <ErrorMesssage

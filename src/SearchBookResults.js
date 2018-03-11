@@ -18,7 +18,7 @@ const SearchBookResults = props => (
         </div>
       : <BookCollection
           books={props.books}
-          onBookShelfChange={event=> console.log(event)}
+          onBookShelfChange={props.onBookShelfChange}
           // TODO: Add Book Self change logic
         />
     }
@@ -27,6 +27,7 @@ const SearchBookResults = props => (
 
 SearchBookResults.propTypes = {
   books: PropTypes.array.isRequired,
+  onBookShelfChange: PropTypes.func.isRequired,
 }
 
 export default SearchBookResults;
