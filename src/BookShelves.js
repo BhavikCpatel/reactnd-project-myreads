@@ -3,18 +3,18 @@ import { Link } from 'react-router-dom';
 import BookShelf from './BookShelf';
 /**
  *
- * @description ListBooks component to list collections of books in each shelf.
+ * @description component to list book shelves.
  * @export
- * @class ListBooks
+ * @class BookShelves
  * @extends {Component}
  * @author Bhavik Patel
  */
-export default class ListBooks extends Component {
+export default class BookShelves extends Component {
   /**
    *
    * @description renders list of books that are added in collection
    * @returns
-   * @memberof ListBooks
+   * @memberof BookShelves
    */
   render() {
     return (
