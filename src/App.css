@@ -42,6 +42,11 @@ body, .app {
 .bookshelf-books {
   text-align: center;
 }
+.bookshelf-count {
+  color: #d1d1d1;
+  padding-left: 10px;
+  font-size: 0.6em;
+}
 
 .open-search {
   position: fixed;

@@ -20,11 +20,20 @@ export default class BookShelf extends Component {
   render() {
     //extracts books and title from props
     const { books, title, onBookShelfChange } = this.props;
+    //lable for number of books in bookshelf
+    const bookCounter = books.length
+      ? `[ ${books.length} ${(books.length > 1 ? 'Books' : 'Book' )} ]`
+      : '';
 
     return (
       <div>
         <div className="bookshelf">
-          <h2 className="bookshelf-title">{title}</h2>
+          <h2 className="bookshelf-title">
+            <span>{title}</span>
+            <span className="bookshelf-count">
+              {bookCounter}
+            </span>
+          </h2>
           <BookCollection
             books={books}
             onBookShelfChange={onBookShelfChange}
