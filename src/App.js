@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 import SearchBooks from './SearchBooks';
 import BookShelves from './BookShelves';
 import ErrorMesssage from './ErrorMessage';
@@ -36,6 +37,27 @@ export default class BooksApp extends React.Component {
 
   /**
    *
+   * @description notification for successful book shelf change
+   * @param {string} bookTitle book title
+   * @param {any} newShelf new shelf name
+   * @memberof BooksApp
+   */
+  notifySuccess(bookTitle, newShelf){
+    const shelf = newShelf === 'currentlyReading'
+      ? 'Currently Reading'
+      : newShelf === 'wantToRead'
+        ? 'Want to Read'
+        : 'Read';
+      const message = `Book "${bookTitle}" successfully
+        ${newShelf === 'none'? 'removed from' : 'moved to'} shelf "${shelf}"`;
+
+    toast.success(message, {
+      position: toast.POSITION.TOP_CENTER
+    });
+  }
+
+  /**
+   *
    * @description synchronize status to update book's shelf change event
    * @param {any} bookTobeUpdated local instance of book -shelf to be updatedbook
    * @param {any} newShelf new shelf name to be updated
@@ -54,6 +76,7 @@ export default class BooksApp extends React.Component {
         );
       }
       this.setState({ books: revisedBooks });
+      this.notifySuccess(bookTobeUpdated.title, newShelf)
     } else {
       const error= 'Something went wrong while update shelf on server' +
         ', Please try again!';
@@ -128,6 +151,7 @@ export default class BooksApp extends React.Component {
             onBookShelfChange={this.bookShelfChangeHandler.bind(this)}
           />
         )} />
+        <ToastContainer autoClose={2000} />
       </div>
     )
   }
