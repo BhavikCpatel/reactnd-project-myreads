@@ -35,6 +35,17 @@ export default class BooksApp extends React.Component {
   render() {
     return (
       <div className="app">
+        {
+          /* Show error message */
+          this.state.error &&
+            <div className="error-message">
+              <span>{this.state.error}</span>
+              <span
+                className="error-close-button"
+                onClick={() => { this.setState({ error: '' })}}>
+              </span>
+            </div>
+        }
         <Route exact path="/search" render={() => (
           <SearchBooks />
         )}/>
