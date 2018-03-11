@@ -9,21 +9,19 @@ import Book from './Book';
  * @author Bhavik Patel
  */
 const BookCollection  = props => (
-  <div className="bookshelf-books">
-    <ol className="books-grid">
-      {
-        props.books.map((book) => (
-          <li key={book.id}>
-            <Book
-              key={book.id}
-              book={book}
-              onBookShelfChange={props.onBookShelfChange}
-            />
-          </li>
-        ))
-      }
-    </ol>
-  </div>
+  <ol className="books-grid">
+    {
+      props.books.map((book) => (
+        <li key={book.id}>
+          <Book
+            key={book.id}
+            book={book}
+            onBookShelfChange={props.onBookShelfChange}
+          />
+        </li>
+      ))
+    }
+  </ol>
 );
 
 BookCollection.propTypes = {

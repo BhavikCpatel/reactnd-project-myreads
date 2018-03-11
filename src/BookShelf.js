@@ -34,10 +34,12 @@ export default class BookShelf extends Component {
               {bookCounter}
             </span>
           </h2>
-          <BookCollection
-            books={books}
-            onBookShelfChange={onBookShelfChange}
-          />
+          <div className="bookshelf-books">
+            <BookCollection
+              books={books}
+              onBookShelfChange={onBookShelfChange}
+            />
+          </div>
         </div>
       </div>
     );
