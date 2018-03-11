@@ -1,9 +1,19 @@
 import React, { Component } from 'react';
 import SearchBookForm from './SearchBookForm';
 import SearchBookResults from './SearchBookResults';
+import ErrorMesssage from './ErrorMessage';
 import * as BooksAPI from './BooksAPI';
 
+/**
+ *
+ * @description component for searching books
+ * @export
+ * @class SearchBooks
+ * @extends {Component}
+ * @author Bhavik Patel
+ */
 export default class SearchBooks extends Component {
+  //search book component's local state
   state = {
     searchQuery: '',
     books: [],
@@ -12,16 +22,28 @@ export default class SearchBooks extends Component {
   //latest search query to make sure we show latest result
   currentSearchQuery = '';
 
+  /**
+   *
+   * @description update local state object
+   * @param {any} {searchQuery = '', books = [], error =''}
+   * @memberof SearchBooks
+   * @author Bhavik Patel
+   */
   updateSearchState({searchQuery = '', books = [], error =''}) {
     this.setState({ searchQuery, books, error });
-    console.log(this.state);
   }
 
+  /**
+   *
+   * @description search book using API
+   * @param {string} searchQuery search criteria text
+   * @memberof SearchBooks
+   * @author Bhavik Patel
+   */
   searchBooks(searchQuery) {
     BooksAPI
       .search(searchQuery)
       .then(books => {
-        console.log(books);
         if (searchQuery === this.currentSearchQuery) {
           books.error
           ? this.updateSearchState(
@@ -35,6 +57,13 @@ export default class SearchBooks extends Component {
       .catch(error => this.updateSearchState({ error }));
   }
 
+  /**
+   *
+   * @description handle book search event.
+   * @param {string} searchQuery search criteria text
+   * @memberof SearchBooks
+   * @author Bhavik Patel
+   */
   bookSearchHandler(searchQuery) {
     //set instance variable to check latest response is latest or not
     this.currentSearchQuery = searchQuery;
@@ -53,6 +82,12 @@ export default class SearchBooks extends Component {
           searchQuery={this.state.searchQuery}
           books={this.state.books}
         />
+        { this.state.error &&
+          <ErrorMesssage
+            message={this.state.error}
+            onErrorMessageClose={() => this.setState({ error: '' })}
+          />
+        }
       </div>
     );
   }
