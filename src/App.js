@@ -2,8 +2,10 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 import SearchBooks from './SearchBooks';
 import BookShelves from './BookShelves';
+import ErrorMesssage from './ErrorMessage';
 import * as BooksAPI from './BooksAPI';
 import './App.css';
+
 
 /**
  *
@@ -108,16 +110,11 @@ export default class BooksApp extends React.Component {
   render() {
     return (
       <div className="app">
-        {
-          /* Show error message */
-          this.state.error &&
-            <div className="error-message">
-              <span>{this.state.error}</span>
-              <span
-                className="error-close-button"
-                onClick={() => { this.setState({ error: '' })}}>
-              </span>
-            </div>
+        { this.state.error &&
+          <ErrorMesssage
+            message={this.state.error}
+            onErrorMessageClose={() => this.setState({ error: '' })}
+          />
         }
         <Route exact path="/search" render={() => (
           <SearchBooks />
