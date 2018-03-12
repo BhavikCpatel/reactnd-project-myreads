@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
  * @export
  * @author Bhavik Patel
  */
-const ErrorMessage = (props) => (
+const ErrorMessage = props => (
   <div className="error-message">
     <span>{props.message}</span>
     <span
@@ -20,6 +20,6 @@ const ErrorMessage = (props) => (
 ErrorMessage.propTypes = {
   message: PropTypes.string.isRequired,
   onErrorMessageClose: PropTypes.func.isRequired,
-}
+};
 
 export default ErrorMessage;

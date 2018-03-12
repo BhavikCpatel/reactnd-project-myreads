@@ -8,11 +8,11 @@ This is my version of MyReads project for Udacity's React Nanodegree course. The
 To get started developing right away:
 
 1. Clone this repo using "clone" or download ZIP directly from Github and extract
-2. CD into project root folder
+2. `cd` into project root folder
 3. Install all project dependencies using command `npm install`
 4. start the development server using command `npm start`
 
-if everything goes well, you should see an app running on a new browser window, however, in any case if it doesn't start automatically, you can navigate app using 'http://localhost:3000' in your favorite browser.
+If everything goes well, you should see an app running on a new browser window, however, in any case if it doesn't start automatically, you can navigate app using 'http://localhost:3000' in your favorite browser.
 
 All the best!
 

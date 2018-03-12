@@ -17,19 +17,19 @@ import './App.css';
  * @author Bhavik Patel
  */
 export default class BooksApp extends React.Component {
-  //App state to hold user's books
+  // App state to hold user's books
   state = {
     books: [],
     error: '',
   };
 
-  //Get all books that belong to User using BooksAPI.getAll method.
-  //check error state to store error and show it on screen
+  // Get all books that belong to User using BooksAPI.getAll method.
+  // check error state to store error and show it on screen
   componentDidMount() {
     BooksAPI.getAll().then((books) => {
-      books.hasOwnProperty('error')
-      ? this.setState({ error: books.error })
-      : this.setState({ books });
+      books.error
+        ? this.setState({ error: books.error })
+        : this.setState({ books });
     }).catch((error) => {
       this.setState({ error });
     });
@@ -42,17 +42,17 @@ export default class BooksApp extends React.Component {
    * @param {any} newShelf new shelf name
    * @memberof BooksApp
    */
-  notifySuccess(bookTitle, newShelf){
+  static notifySuccess(bookTitle, newShelf) {
     const shelf = newShelf === 'currentlyReading'
       ? 'Currently Reading'
       : newShelf === 'wantToRead'
         ? 'Want to Read'
         : 'Read';
-      const message = `Book "${bookTitle}" successfully
-        ${newShelf === 'none'? 'removed from' : 'moved to'} shelf "${shelf}"`;
+    const message = `Book "${bookTitle}" successfully
+        ${newShelf === 'none' ? 'removed from' : 'moved to'} shelf "${shelf}"`;
 
     toast.success(message, {
-      position: toast.POSITION.TOP_CENTER
+      position: toast.POSITION.TOP_CENTER,
     });
   }
 
@@ -66,19 +66,17 @@ export default class BooksApp extends React.Component {
    * @author Bhavik Patel
    */
   synchornizeBookState(bookTobeUpdated, newShelf, booksCollection) {
-    //validate response and update state based on response status
-    if (this.validateResponse(bookTobeUpdated, newShelf, booksCollection)) {
-      const revisedBooks = this.state.books.filter((book) =>
+    // validate response and update state based on response status
+    if (BooksApp.validateResponse(bookTobeUpdated, newShelf, booksCollection)) {
+      const revisedBooks = this.state.books.filter(book =>
         book.id !== bookTobeUpdated.id);
-      if(newShelf !== 'none') {
-        revisedBooks.push(
-          Object.assign(bookTobeUpdated, { shelf: newShelf })
-        );
+      if (newShelf !== 'none') {
+        revisedBooks.push(Object.assign(bookTobeUpdated, { shelf: newShelf }));
       }
       this.setState({ books: revisedBooks });
-      this.notifySuccess(bookTobeUpdated.title, newShelf)
+      BooksApp.notifySuccess(bookTobeUpdated.title, newShelf);
     } else {
-      const error= 'Something went wrong while update shelf on server' +
+      const error = 'Something went wrong while update shelf on server' +
         ', Please try again!';
       this.setState({ error });
     }
@@ -94,7 +92,7 @@ export default class BooksApp extends React.Component {
    * @memberof BooksApp
    * @author Bhavik Patel
    */
-  validateResponse(bookTobeUpdated, newShelf, booksCollection) {
+  static validateResponse(bookTobeUpdated, newShelf, booksCollection) {
     /*
       Logic :validate the following options:
       1. if user choose "none", make sure response doesn't contain this book
@@ -115,7 +113,7 @@ export default class BooksApp extends React.Component {
    * @author Bhavik Patel
    */
   bookShelfChangeHandler(book, newShelf) {
-    //Call API to update book shelf on server
+    // Call API to update book shelf on server
     BooksAPI
       .update(book, newShelf)
       .then((res) => {
@@ -124,10 +122,10 @@ export default class BooksApp extends React.Component {
           2. book - update state to reflect correct shelf of book
         */
         res.error
-        ? this.setState({ error: res.error })
-        : this.synchornizeBookState (book, newShelf, res);
+          ? this.setState({ error: res.error })
+          : this.synchornizeBookState(book, newShelf, res);
       })
-      .catch((error) => { this.setState({ error })});
+      .catch((error) => { this.setState({ error }); });
   }
 
   render() {
@@ -153,6 +151,6 @@ export default class BooksApp extends React.Component {
         )} />
         <ToastContainer autoClose={2000} />
       </div>
-    )
+    );
   }
 }

@@ -10,7 +10,7 @@ import BookCollection from './BookCollection';
  * @author Bhavik Patel
  */
 export default class BookShelf extends Component {
-  //define PropTypes for type checking
+  // define PropTypes for type checking
   static propTypes = {
     books: PropTypes.array.isRequired,
     title: PropTypes.string.isRequired,
@@ -18,11 +18,11 @@ export default class BookShelf extends Component {
   }
 
   render() {
-    //extracts books and title from props
+    // extracts books and title from props
     const { books, title, onBookShelfChange } = this.props;
-    //lable for number of books in bookshelf
+    // lable for number of books in bookshelf
     const bookCounter = books.length
-      ? `[ ${books.length} ${(books.length > 1 ? 'Books' : 'Book' )} ]`
+      ? `[ ${books.length} ${(books.length > 1 ? 'Books' : 'Book')} ]`
       : '';
 
     return (

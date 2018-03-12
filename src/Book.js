@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-//dummy image for missing cover page.
+// dummy image for missing cover page.
 const url = require('./icons/missing-cover-page.png');
 
 /**
@@ -13,30 +13,30 @@ const url = require('./icons/missing-cover-page.png');
  * @author Bhavik Patel
  */
 export default class Book extends Component {
-  //define PropTypes for type checking
+  // define PropTypes for type checking
   static propTypes = {
     book: PropTypes.object.isRequired,
     onBookShelfChange: PropTypes.func.isRequired,
   }
 
-  //render a book
+  // render a book
   render() {
-    //Get Book from props
+    // Get Book from props
     const { book, onBookShelfChange } = this.props;
-    //set extract book properties and
-    //set default values for missing attributes
-    //especially for authors, shelf, thumbnail
+    // set extract book properties and
+    // set default values for missing attributes
+    // especially for authors, shelf, thumbnail
     const {
       title = '',
       authors = [],
       shelf = 'none',
       imageLinks: { thumbnail = url } = [],
     } = book;
-    //style object for cover page
+    // style object for cover page
     const coverPageStyle = {
       width: 128,
       height: 193,
-      backgroundImage: `url(${thumbnail})`
+      backgroundImage: `url(${thumbnail})`,
     };
 
     return (
@@ -48,7 +48,7 @@ export default class Book extends Component {
 
             <select
               defaultValue={shelf}
-              onChange={(e) => {onBookShelfChange(book, e.target.value)}}
+              onChange={(e) => { onBookShelfChange(book, e.target.value); }}
             >
               <option value="none" disabled>Move to...</option>
               <option value="currentlyReading">Currently Reading</option>

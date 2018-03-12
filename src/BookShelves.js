@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import BookShelf from './BookShelf';
+
 /**
  *
  * @description component to list book shelves.
@@ -11,17 +12,17 @@ import BookShelf from './BookShelf';
  * @author Bhavik Patel
  */
 export default class BookShelves extends Component {
-  //define proptypes for static checking
+  // define proptypes for static checking
   static propTypes = {
     books: PropTypes.array.isRequired,
     onBookShelfChange: PropTypes.func.isRequired,
-  }
+  };
 
   shelves = {
-    currentlyReading: "Currently Reading",
-    wantToRead: "Want to Read",
-    read: "Read"
-  }
+    currentlyReading: 'Currently Reading',
+    wantToRead: 'Want to Read',
+    read: 'Read',
+  };
 
   /**
    *
@@ -32,9 +33,10 @@ export default class BookShelves extends Component {
    * @memberof BookShelves
    * @author Bhavik Patel
    */
-  getBooksByShelf(books, shelf){
-    return books.filter((book) => book.shelf === shelf)
+  static getBooksByShelf(books, shelf) {
+    return books.filter(book => book.shelf === shelf);
   }
+
   /**
    *
    * @description renders list of books that are added in collection
@@ -42,9 +44,8 @@ export default class BookShelves extends Component {
    * @memberof BookShelves
    */
   render() {
-    //get books array from props
+    // get books array from props
     const { books, onBookShelfChange } = this.props;
-
 
     return (
       <div className="list-books">
@@ -53,11 +54,11 @@ export default class BookShelves extends Component {
         </div>
         <div className="list-books-content">
           {
-            Object.getOwnPropertyNames(this.shelves).map((shelf) => (
+            Object.getOwnPropertyNames(this.shelves).map(shelf => (
               <BookShelf
                 key={shelf}
                 title={this.shelves[shelf]}
-                books={this.getBooksByShelf(books, shelf)}
+                books={BookShelves.getBooksByShelf(books, shelf)}
                 onBookShelfChange={onBookShelfChange} />
             ))
           }
@@ -67,6 +68,6 @@ export default class BookShelves extends Component {
           <Link to="/search">Add a book</Link>
         </div>
       </div>
-    )
+    );
   }
 }

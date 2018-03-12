@@ -8,10 +8,10 @@ import Book from './Book';
  * @export
  * @author Bhavik Patel
  */
-const BookCollection  = props => (
+const BookCollection = props => (
   <ol className="books-grid">
     {
-      props.books.map((book) => (
+      props.books.map(book => (
         <li key={book.id}>
           <Book
             key={book.id}
@@ -27,6 +27,6 @@ const BookCollection  = props => (
 BookCollection.propTypes = {
   books: PropTypes.array.isRequired,
   onBookShelfChange: PropTypes.func.isRequired,
-}
+};
 
 export default BookCollection;

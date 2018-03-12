@@ -14,18 +14,18 @@ import * as BooksAPI from './BooksAPI';
  * @author Bhavik Patel
  */
 export default class SearchBooks extends Component {
-  //define proptypes for type checking
+  // define proptypes for type checking
   static propTypes = {
     books: PropTypes.array.isRequired,
     onBookShelfChange: PropTypes.func.isRequired,
   }
-  //search book component's local state
+  // search book component's local state
   state = {
     searchQuery: '',
     books: [],
     error: '',
   };
-  //latest search query to make sure we show latest result
+  // latest search query to make sure we show latest result
   currentSearchQuery = '';
 
   /**
@@ -35,7 +35,7 @@ export default class SearchBooks extends Component {
    * @memberof SearchBooks
    * @author Bhavik Patel
    */
-  updateSearchState({searchQuery = '', books = [], error =''}) {
+  updateSearchState({ searchQuery = '', books = [], error = '' }) {
     const booksWithShelf = books.length ? this.updateBookShelf(books) : [];
     this.setState({ searchQuery, books: booksWithShelf, error });
   }
@@ -48,16 +48,19 @@ export default class SearchBooks extends Component {
    * @memberof SearchBooks
    * @author Bhavik Patel
    */
-  updateBookShelf(books){
+  updateBookShelf(books) {
     const updatedBooks = [];
     const bookCollectionByShelf = this.props.books
-      .reduce((books, book) => {books[book['id']] = book; return books;}, {});
+      .reduce((revisedbooks, book) => {
+        revisedbooks[book.id] = book;
+        return revisedbooks;
+      }, {});
 
     books.forEach((book, index) => {
       const shelf =
         bookCollectionByShelf[book.id]
-        ? bookCollectionByShelf[book.id].shelf
-        : 'none';
+          ? bookCollectionByShelf[book.id].shelf
+          : 'none';
       updatedBooks.push(Object.assign(books[index], { shelf }));
     });
 
@@ -73,15 +76,14 @@ export default class SearchBooks extends Component {
   searchBooks(searchQuery) {
     BooksAPI
       .search(searchQuery)
-      .then(books => {
+      .then((books) => {
         if (searchQuery === this.currentSearchQuery) {
           books.error
-          ? this.updateSearchState(
-              { searchQuery,
-                error: (books.error === 'empty query' ? '' : books.error)
-              }
-            )
-          : this.updateSearchState({ searchQuery, books });
+            ? this.updateSearchState({
+              searchQuery,
+              error: (books.error === 'empty query' ? '' : books.error),
+            })
+            : this.updateSearchState({ searchQuery, books });
         }
       })
       .catch(error => this.updateSearchState({ error }));
@@ -95,11 +97,11 @@ export default class SearchBooks extends Component {
    * @author Bhavik Patel
    */
   bookSearchHandler(searchQuery) {
-    //set instance variable to check latest response is latest or not
+    // set instance variable to check latest response is latest or not
     this.currentSearchQuery = searchQuery;
     searchQuery
-    ? this.searchBooks(searchQuery)
-    : this.updateSearchState({searchQuery});
+      ? this.searchBooks(searchQuery)
+      : this.updateSearchState({ searchQuery });
   }
 
   render() {

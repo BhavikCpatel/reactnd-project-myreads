@@ -11,7 +11,7 @@ import PropTypes from 'prop-types';
  * @author Bhavik Patel
  */
 export default class SearchBookForm extends Component {
-  //define proptypes for type checking
+  // define proptypes for type checking
   static propTypes = {
     onBookSearch: PropTypes.func.isRequired,
   }
