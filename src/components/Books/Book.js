@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 // dummy image for missing cover page.
-const url = require('./icons/missing-cover-page.png');
+const url = require('../../icons/missing-cover-page.png');
 
 /**
  *

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import BookCollection from './BookCollection';
+import BookCollection from '../Books/BookCollection';
 /**
  * @function: SearchBookResults
  * @description Stateless component to list search results (books)

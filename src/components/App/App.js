@@ -1,10 +1,11 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
-import SearchBooks from './SearchBooks';
-import BookShelves from './BookShelves';
-import ErrorMesssage from './ErrorMessage';
-import * as BooksAPI from './BooksAPI';
+import { BrowserRouter } from 'react-router-dom';
+import SearchBooks from '../Search/SearchBooks';
+import BookShelves from '../Books/BookShelves';
+import ErrorMesssage from '../UI/ErrorMessage';
+import * as BooksAPI from '../../api/BooksAPI';
 import './App.css';
 
 
@@ -31,7 +32,7 @@ export default class BooksApp extends React.Component {
         ? this.setState({ error: books.error })
         : this.setState({ books });
     }).catch((error) => {
-      this.setState({ error });
+      this.setState({ error: 'Server Error' });
     });
   }
 
@@ -122,7 +123,7 @@ export default class BooksApp extends React.Component {
           2. book - update state to reflect correct shelf of book
         */
         res.error
-          ? this.setState({ error: res.error })
+          ? this.setState({ error: 'Error while update' })
           : this.synchornizeBookState(book, newShelf, res);
       })
       .catch((error) => { this.setState({ error }); });
@@ -130,6 +131,7 @@ export default class BooksApp extends React.Component {
 
   render() {
     return (
+      <BrowserRouter>
       <div className="app">
         { this.state.error &&
           <ErrorMesssage
@@ -151,6 +153,7 @@ export default class BooksApp extends React.Component {
         )} />
         <ToastContainer autoClose={2000} />
       </div>
+      </BrowserRouter>
     );
   }
 }

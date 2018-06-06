@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import SearchBookForm from './SearchBookForm';
 import SearchBookResults from './SearchBookResults';
-import ErrorMesssage from './ErrorMessage';
-import * as BooksAPI from './BooksAPI';
+import ErrorMesssage from '../UI/ErrorMessage';
+import * as BooksAPI from '../../api/BooksAPI';
 
 /**
  *
